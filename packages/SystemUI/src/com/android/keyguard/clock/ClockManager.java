@@ -156,7 +156,7 @@ public final class ClockManager {
         addBuiltinClock(() -> new MNMLBoxClockController(res, layoutInflater, colorExtractor, context));
         addBuiltinClock(() -> new OronosClockController(res, layoutInflater, colorExtractor));
         addBuiltinClock(() -> new SfunyClockController(res, layoutInflater, colorExtractor));
-        addBuiltinClock(() -> new DividedLinesClockController(res, layoutInflater, colorExtractor));
+        addBuiltinClock(() -> new DividedLinesClockController(res, layoutInflater, colorExtractor, context));
         addBuiltinClock(() -> new SamsungHighlightClockController(res, layoutInflater, colorExtractor));
 
         // Store the size of the display for generation of clock preview.

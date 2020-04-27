@@ -37,4 +37,7 @@
     <string name="battery_info_status_warp_charging">Warp charging</string>
     <string name="battery_info_status_warp_charging_lower">warp charging</string>
 
+        <!-- Alerting notification header label -->
+    <string name="notification_section_header_alerting">Alerting notifications</string>
+
 </resources>

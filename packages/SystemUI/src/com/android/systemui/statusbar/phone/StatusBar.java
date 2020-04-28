@@ -4409,6 +4409,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_SHOW_BATTERY_ESTIMATE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.LOCKSCREEN_CLOCK_SELECTION),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4436,7 +4439,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateAODDimView();
             setMediaHeadsup();
             setQsBatteryPercentMode();
+            updateKeyguardStatusSettings();
         }
+    }
+
+    private void updateKeyguardStatusSettings() {
+        mNotificationPanel.updateKeyguardStatusSettings();
     }
 
     private void setScreenBrightnessMode() {

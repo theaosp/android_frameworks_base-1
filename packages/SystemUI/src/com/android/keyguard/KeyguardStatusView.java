@@ -91,6 +91,8 @@ public class KeyguardStatusView extends GridLayout implements
     private int mDateVerPadding;
     private int mDateHorPadding;
 
+    private boolean isSammyStyleEnabled = false;
+
     private KeyguardUpdateMonitorCallback mInfoCallback = new KeyguardUpdateMonitorCallback() {
 
         @Override
@@ -111,6 +113,7 @@ public class KeyguardStatusView extends GridLayout implements
                 updateOwnerInfo();
                 updateLogoutView();
                 mClockView.refreshLockFont();
+                mClockView.setLockscreenClockPosition(isSammyStyleEnabled);
                 updateDateStyles();
 		        refreshLockDateFont();
             }
@@ -133,6 +136,7 @@ public class KeyguardStatusView extends GridLayout implements
             updateLogoutView();
             mClockView.refreshLockFont();
             refreshLockDateFont();
+            mClockView.setLockscreenClockPosition(isSammyStyleEnabled);
             updateDateStyles();
 	}
 
@@ -212,7 +216,7 @@ public class KeyguardStatusView extends GridLayout implements
         mKeyguardSlice = findViewById(R.id.keyguard_status_area);
         mKeyguardSliceView = findViewById(R.id.keyguard_status_area);
         mClockView.refreshLockFont();
-	refreshLockDateFont();
+        mClockView.setLockscreenClockPosition(isSammyStyleEnabled);
 
         mTextColor = mClockView.getCurrentTextColor();
 
@@ -634,45 +638,57 @@ public class KeyguardStatusView extends GridLayout implements
             case 1: // hidden
                 mSmallClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = false;
                 break;
             case 2: // default
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = false;
                 break;
             case 3: // default (bold)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = false;
                 break;
             case 4: // default (accent)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = false;
                 break;
             case 5: // default (accent hr)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = false;
                 break;
             case 6: // default (accent min)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = false;
                 break;
             case 7: // sammy
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = true;
                 break;
             case 8: // sammy (bold)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = true;
                 break;
             case 9: // sammy (bold)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = true;
                 break;
-            case 10: // default (small font)
+            case 10: // sammy dark (small font)
                 mSmallClockView.setVisibility(View.VISIBLE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+                isSammyStyleEnabled = true;
                 break;
         }
     }
+
+
 
     public void updateAll() {
         updateSettings();

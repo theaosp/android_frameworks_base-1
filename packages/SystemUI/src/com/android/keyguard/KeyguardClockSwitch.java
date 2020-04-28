@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import com.android.internal.util.zenx.ZenxUtils;
 import androidx.annotation.VisibleForTesting;
+import android.view.Gravity;
 
 import com.android.internal.colorextraction.ColorExtractor;
 import com.android.internal.colorextraction.ColorExtractor.OnColorsChangedListener;
@@ -135,6 +136,13 @@ public class KeyguardClockSwitch extends RelativeLayout {
     private boolean mShowingHeader;
     private boolean mSupportsDarkText;
     private int[] mColorPalette;
+
+    private int mLockscreenClockPositionMode;
+
+    private int sammyClockPadding = 180;
+    private int defaultClockPadding = 65;
+    private int noClockPadding = 0;
+    private boolean isSammyStyleEnabled = false;
 
     /**
      * Track the state of the status bar to know when to hide the big_clock_container.
@@ -281,6 +289,61 @@ public class KeyguardClockSwitch extends RelativeLayout {
             mClockPlugin.setColorPalette(mSupportsDarkText, mColorPalette);
         }
     }
+
+    private int getLockscreenClockPositionMode() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_CLOCK_POSITION, 0);
+    }
+
+// mode: 0: TextClock  1: CustomClock 2: customNumClock
+  public void setLockscreenClockPosition(boolean sammyEnabled) {
+        mLockscreenClockPositionMode = getLockscreenClockPositionMode();
+        isSammyStyleEnabled = sammyEnabled;
+
+        //Correct clock position if there is any visbile Notification
+        if(mHasVisibleNotifications && mDarkAmount != 0f) {
+                mClockView.setGravity(Gravity.CENTER_HORIZONTAL);
+                mClockView.setPadding(noClockPadding,0,noClockPadding,0);
+                mClockViewBold.setGravity(Gravity.CENTER_HORIZONTAL);
+                mClockViewBold.setPadding(noClockPadding,0,noClockPadding,0);
+                return;
+        }
+
+        switch(mLockscreenClockPositionMode) {
+                case 0:
+                   mClockView.setGravity(Gravity.CENTER_HORIZONTAL);
+                   mClockView.setPadding(noClockPadding,0,noClockPadding,0);
+                   mClockViewBold.setGravity(Gravity.CENTER_HORIZONTAL);
+                   mClockViewBold.setPadding(noClockPadding,0,noClockPadding,0);
+                   break;
+                case 1:
+                   if(sammyEnabled) {
+                           mClockView.setGravity(Gravity.LEFT);
+                           mClockView.setPadding(sammyClockPadding,0,0,0);
+                           mClockViewBold.setGravity(Gravity.LEFT);
+                           mClockViewBold.setPadding(sammyClockPadding,0,0,0);
+                   } else {
+                           mClockView.setGravity(Gravity.LEFT);
+                           mClockView.setPadding(defaultClockPadding,0,0,0);
+                           mClockViewBold.setGravity(Gravity.LEFT);
+                           mClockViewBold.setPadding(defaultClockPadding,0,0,0);
+                   }
+                   break;
+                case 2:
+                   if(sammyEnabled) {
+                           mClockView.setGravity(Gravity.RIGHT);
+                           mClockView.setPadding(0,0,sammyClockPadding,0);
+                           mClockViewBold.setGravity(Gravity.RIGHT);
+                           mClockViewBold.setPadding(0,0,sammyClockPadding,0);
+                   } else {
+                           mClockView.setGravity(Gravity.RIGHT);
+                           mClockView.setPadding(0,0,defaultClockPadding,0);
+                           mClockViewBold.setGravity(Gravity.RIGHT);
+                           mClockViewBold.setPadding(0,0,defaultClockPadding,0);
+                   }
+                   break;
+            }
+     }
 
     /**
      * Set container for big clock face appearing behind NSSL and KeyguardStatusView.
@@ -459,7 +522,13 @@ public class KeyguardClockSwitch extends RelativeLayout {
                 mBigClockContainer.setVisibility(VISIBLE);
             }
         }
+        setLockscreenClockPosition(isSammyStyleEnabled);
     }
+
+
+//     private int sammyClockPadding = 180;
+//     private int defaultClockPadding = 65;
+//     private int noClockPadding = 0;
 
     public void refreshLockFont() {
         final Resources res = getContext().getResources();
@@ -660,10 +729,13 @@ public class KeyguardClockSwitch extends RelativeLayout {
         mClockViewBold.setVisibility(hasHeader ? View.VISIBLE : View.INVISIBLE);
         int paddingBottom = mContext.getResources().getDimensionPixelSize(hasHeader
                 ? R.dimen.widget_vertical_padding_clock : R.dimen.title_clock_padding);
+
+
         mClockView.setPadding(mClockView.getPaddingLeft(), mClockView.getPaddingTop(),
-                mClockView.getPaddingRight(), paddingBottom);
+        mClockView.getPaddingRight(), paddingBottom);
         mClockViewBold.setPadding(mClockViewBold.getPaddingLeft(), mClockViewBold.getPaddingTop(),
-                mClockViewBold.getPaddingRight(), paddingBottom);
+        mClockViewBold.getPaddingRight(), paddingBottom);
+
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)

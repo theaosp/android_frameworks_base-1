@@ -4764,6 +4764,11 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Change horizontal position of lockscreen clock - 0: Center, 1:Left, 2: Right
+         * @hide
+         */
+        public static final String LOCKSCREEN_CLOCK_POSITION = "lockscreen_clock_position";
+
          * Clock font style  QS 
          * @hide
          */

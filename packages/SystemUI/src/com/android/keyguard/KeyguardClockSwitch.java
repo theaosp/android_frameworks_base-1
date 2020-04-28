@@ -231,7 +231,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
 
     private int getLockClockFont() {
         return Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.LOCK_CLOCK_FONTS, 0);
+                Settings.System.LOCK_CLOCK_FONTS, 28);
     }
     private void setClockPlugin(ClockPlugin plugin) {
         // Disconnect from existing plugin.
@@ -533,7 +533,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
     public void refreshLockFont() {
         final Resources res = getContext().getResources();
         boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
-        int lockClockFont = isPrimary ? getLockClockFont() : 0;
+        int lockClockFont = isPrimary ? getLockClockFont() : 28;
 
         if (lockClockFont == 0) {
             mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));

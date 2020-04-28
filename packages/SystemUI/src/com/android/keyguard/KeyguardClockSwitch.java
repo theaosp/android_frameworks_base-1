@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextClock;
-import com.android.internal.util.zenx.Utils;
+import com.android.internal.util.zenx.ZenxUtils;
 import androidx.annotation.VisibleForTesting;
 
 import com.android.internal.colorextraction.ColorExtractor;
@@ -225,7 +225,6 @@ public class KeyguardClockSwitch extends RelativeLayout {
         return Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.LOCK_CLOCK_FONTS, 0);
     }
-
     private void setClockPlugin(ClockPlugin plugin) {
         // Disconnect from existing plugin.
         if (mClockPlugin != null) {
@@ -272,7 +271,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
         // Initialize plugin parameters.
         mClockPlugin = plugin;
         mClockPlugin.setStyle(getPaint().getStyle());
-        if(Utils.useLockscreenClockAccentColor(mContext)) {
+        if(ZenxUtils.useLockscreenClockAccentColor(mContext)) {
             mClockPlugin.setTextColor(mContext.getResources().getColor(R.color.lockscreen_clock_accent_color));
         } else {
             mClockPlugin.setTextColor(getCurrentTextColor());
@@ -312,7 +311,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
      * It will also update plugin setTextColor if plugin is connected.
      */
     public void setTextColor(int color) {
-        if(Utils.useLockscreenClockAccentColor(mContext)) {
+        if(ZenxUtils.useLockscreenClockAccentColor(mContext)) {
             mClockView.setTextColor(mContext.getResources().getColor(R.color.lockscreen_clock_accent_color));
             mClockViewBold.setTextColor(mContext.getResources().getColor(R.color.lockscreen_clock_accent_color));
             if (mClockPlugin != null) {

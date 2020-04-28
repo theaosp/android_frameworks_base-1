@@ -50,6 +50,7 @@ import android.view.IWindowManager;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
+import android.provider.Settings;
 
 import com.android.internal.R;
 
@@ -152,6 +153,12 @@ public class Utils {
     public static boolean isChineseLanguage() {
         return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
                 Locale.CHINESE.getLanguage());
+    }
+
+    // Check for lockscreen accent color
+    public static boolean useLockscreenClockAccentColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+          Settings.System.LOCKSCREEN_ACCENT_COLOR, 0) == 1;
     }
 
     // Method to check if device supports flashlight

@@ -25,11 +25,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextClock;
+import android.content.Context;
 
 import com.android.internal.colorextraction.ColorExtractor;
 import com.android.systemui.R;
 import com.android.systemui.colorextraction.SysuiColorExtractor;
 import com.android.systemui.plugins.ClockPlugin;
+import com.android.internal.util.zenx.Utils;
 
 import java.util.TimeZone;
 
@@ -75,6 +77,8 @@ public class BinaryClockController implements ClockPlugin {
     private View mView;
     private TextClock mLockClock;
 
+    private Context mContext;
+
     /**
      * Create a BinaryClockController instance.
      *
@@ -83,10 +87,11 @@ public class BinaryClockController implements ClockPlugin {
      * @param colorExtractor Extracts accent color from wallpaper.
      */
     public BinaryClockController(Resources res, LayoutInflater inflater,
-            SysuiColorExtractor colorExtractor) {
+            SysuiColorExtractor colorExtractor, Context context) {
         mResources = res;
         mLayoutInflater = inflater;
         mColorExtractor = colorExtractor;
+        mContext = context;
         mClockPosition = new SmallClockPosition(res);
     }
 
@@ -129,6 +134,7 @@ public class BinaryClockController implements ClockPlugin {
         // Initialize state of plugin before generating preview.
         setDarkAmount(1f);
         setTextColor(Color.WHITE);
+
         ColorExtractor.GradientColors colors = mColorExtractor.getColors(
                 WallpaperManager.FLAG_LOCK);
         setColorPalette(colors.supportsDarkText(), colors.getColorPalette());
@@ -163,7 +169,12 @@ public class BinaryClockController implements ClockPlugin {
 
     @Override
     public void setTextColor(int color) {
-        mBinaryClock.setTintColor(color);
+        if(Utils.useLockscreenClockAccentColor(mContext)) {
+            mBinaryClock.setTintColor((mContext.getResources().getColor(R.color.lockscreen_clock_accent_color)));
+            mLockClock.setTextColor((mContext.getResources().getColor(R.color.lockscreen_clock_accent_color)));
+        } else {
+            mBinaryClock.setTintColor(color);
+        }
     }
 
     @Override

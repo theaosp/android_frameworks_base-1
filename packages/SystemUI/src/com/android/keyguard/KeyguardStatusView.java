@@ -70,6 +70,7 @@ public class KeyguardStatusView extends GridLayout implements
     private View mKeyguardSliceView;
     private Runnable mPendingMarqueeStart;
     private Handler mHandler;
+    private View mSmallClockView;
 
     private boolean mPulsing;
     private float mDarkAmount = 0;
@@ -627,38 +628,48 @@ public class KeyguardStatusView extends GridLayout implements
         mClockSelection = Settings.Secure.getIntForUser(resolver,
                 Settings.Secure.LOCKSCREEN_CLOCK_SELECTION, 3, UserHandle.USER_CURRENT);
 
-        mClockView = findViewById(R.id.keyguard_clock_container);
+        mSmallClockView = findViewById(R.id.clock_view);
 
         switch (mClockSelection) {
             case 1: // hidden
-                mClockView.setVisibility(View.GONE);
+                mSmallClockView.setVisibility(View.GONE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 2: // default
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 3: // default (bold)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 4: // default (accent)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 5: // default (accent hr)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 6: // default (accent min)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 7: // sammy
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 8: // sammy (bold)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 9: // sammy (bold)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
             case 10: // default (small font)
-                mClockView.setVisibility(View.VISIBLE);
+                mSmallClockView.setVisibility(View.VISIBLE);
+                params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 break;
         }
     }

@@ -62,11 +62,28 @@ import java.util.Locale;
 
 public class ZenxUtils {
 
-
     // Check for lockscreen accent color
     public static boolean useLockscreenClockAccentColor(Context context) {
         return Settings.System.getInt(context.getContentResolver(),
           Settings.System.LOCKSCREEN_ACCENT_COLOR, 0) == 1;
     }
 
+     // Current performance mode
+    public static String GetLastPerformanceProfileFromSettings(Context context) {
+          int state = Settings.System.getInt(context.getContentResolver(),
+                Settings.System.LAST_PERFORMANCE_PROFILE, 0);
+         return Integer.toString(state);
+    }
+
+     // Set performance mode
+    public static void SetLastPerformanceProfileToSettings(Context context, String mode) {
+        Settings.System.putIntForUser(context.getContentResolver(),
+                    Settings.System.LAST_PERFORMANCE_PROFILE, Integer.parseInt(mode), UserHandle.USER_CURRENT);
+    }
+
+    // Check for lockscreen indication accent color
+    public static boolean IntelligentPerformanceProfileAvailable() {
+        return Resources.getSystem().getBoolean(
+                        R.bool.config_intelligent_performance_profile);
+    }
 }

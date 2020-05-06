@@ -157,7 +157,7 @@ public final class ClockManager {
         addBuiltinClock(() -> new OronosClockController(res, layoutInflater, colorExtractor, context));
         addBuiltinClock(() -> new SfunyClockController(res, layoutInflater, colorExtractor, context));
         addBuiltinClock(() -> new DividedLinesClockController(res, layoutInflater, colorExtractor, context));
-        addBuiltinClock(() -> new SamsungHighlightClockController(res, layoutInflater, colorExtractor));
+        // addBuiltinClock(() -> new SamsungHighlightClockController(res, layoutInflater, colorExtractor));
 
         // Store the size of the display for generation of clock preview.
         DisplayMetrics dm = res.getDisplayMetrics();

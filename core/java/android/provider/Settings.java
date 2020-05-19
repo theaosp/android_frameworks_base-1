@@ -6722,6 +6722,14 @@ public final class Settings {
         public static final String DISMISS_ALL_BUTTON = "dismiss_all_button";
 
         /**
+         * Controls whether to show R style notification headers
+         * @hide
+         */
+        public static final String NOTIFICATION_HEADERS = "notification_headers";
+
+        private static final Validator NOTIFICATION_HEADERS_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6884,6 +6892,7 @@ public final class Settings {
             STATUSBAR_BATTERY_BAR_ENABLE_CHARGING_COLOR,
             STATUSBAR_BATTERY_BAR_BLEND_COLORS_REVERSE,
             STATUSBAR_BATTERY_BAR_BLEND_DARK_COLORS_REVERSE,
+            NOTIFICATION_HEADERS,
         };
 
         /**
@@ -7333,6 +7342,7 @@ public final class Settings {
             VALIDATORS.put(STATUSBAR_BATTERY_BAR_BLEND_DARK_COLORS_REVERSE, STATUSBAR_BATTERY_BAR_BLEND_DARK_COLORS_REVERSE_VALIDATOR);
             VALIDATORS.put(ENABLE_CONDITIONS, ENABLE_CONDITIONS_VALIDATOR);
             VALIDATORS.put(ENABLE_SUGGESTIONS, ENABLE_SUGGESTIONS_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_HEADERS, NOTIFICATION_HEADERS_VALIDATOR);
         }
 
         /**

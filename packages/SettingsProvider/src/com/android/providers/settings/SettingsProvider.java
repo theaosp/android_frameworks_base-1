@@ -2027,7 +2027,7 @@ public class SettingsProvider extends ContentProvider {
         if (getContext().checkCallingOrSelfPermission(permission)
                 != PackageManager.PERMISSION_GRANTED) {
             throw new SecurityException("Permission denial: " + resolveCallingPackage()
-                    + " writing to settings requires: " + permissions);
+                    + " writing to settings requires: " + permission);
         }
     }
 
